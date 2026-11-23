@@ -1,0 +1,65 @@
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver-policy:
+    'rule-set:geosite-ru':
+      - 77.88.8.8
+      - 77.88.8.1
+    '+.ru':
+      - 77.88.8.8
+      - 77.88.8.1
+    '+.su':
+      - 77.88.8.8
+      - 77.88.8.1
+    '+.xn--p1ai': # зона .рф
+      - 77.88.8.8
+      - 77.88.8.1
+    '+.yandex.net':
+      - 77.88.8.8
+      - 77.88.8.1
+    '+.vk.com':
+      - 77.88.8.8
+      - 77.88.8.1
+  default-nameserver:
+    - 77.88.8.8
+    - 1.1.1.1
+  nameserver:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.google/dns-query
+    
+rule-providers:
+  geosite-ru:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/ru.yaml"
+    path: ./ruleset/geosite-ru.yaml
+    interval: 86400
+  geoip-ru:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geoip/ru.yaml"
+    path: ./ruleset/geoip-ru.yaml
+    interval: 86400
+
+rules:
+  - GEOIP,private,DIRECT,no-resolve
+
+  - DOMAIN-SUFFIX,ru,DIRECT
+  - DOMAIN-SUFFIX,su,DIRECT
+  - DOMAIN-SUFFIX,xn--p1ai,DIRECT
+  - DOMAIN-KEYWORD,yandex,DIRECT
+  - DOMAIN-KEYWORD,vkontakte,DIRECT
+  - DOMAIN-SUFFIX,vk.com,DIRECT
+
+  - RULE-SET,geosite-ru,DIRECT
+  - RULE-SET,geoip-ru,DIRECT,no-resolve
+
+  - GEOIP,RU,DIRECT,no-resolve
+
+  - MATCH,PROXY
