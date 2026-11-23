@@ -1,0 +1,43 @@
+{
+  "Name": "RU-Direct-All-Proxy",
+  "GlobalProxy": "true",
+  "UseChunkFiles": "true",
+  "RemoteDns": "8.8.8.8",
+  "DomesticDns": "77.88.8.8",
+  "RemoteDNSType": "DoH",
+  "RemoteDNSDomain": "https://8.8.8.8/dns-query",
+  "RemoteDNSIP": "8.8.8.8",
+  "DomesticDNSType": "DoH",
+  "DomesticDNSDomain": "https://77.88.8.8/dns-query",
+  "DomesticDNSIP": "77.88.8.8",
+  "Geoipurl": "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat",
+  "Geositeurl": "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat",
+  "LastUpdated": "0",
+  "DnsHosts": {
+    "dns.google": "8.8.8.8",
+    "dns.yandex.net": "77.88.8.8"
+  },
+  "RouteOrder": "block-proxy-direct",
+  "DirectSites": [
+    "geosite:private",
+    "geosite:category-ru",
+    "domain:ru",
+    "domain:рф",
+    "domain:su"
+  ],
+  "DirectIp": [
+    "geoip:private",
+    "geoip:ru",
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "192.168.0.0/16"
+  ],
+  "ProxySites": [],
+  "ProxyIp": [],
+  "BlockSites": [
+    "geosite:category-ads-all"
+  ],
+  "BlockIp": [],
+  "DomainStrategy": "IPIfNonMatch",
+  "FakeDNS": "false"
+}
